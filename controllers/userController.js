@@ -3,7 +3,6 @@ const Models = require("../models");
 const bcrypt = require('bcryptjs')
 const jwt = require("jsonwebtoken"); // CommonJS syntax
 require("dotenv").config();
-const { uploadFile, uploadFiles } = require('../libraries/uploads');
 
 const getUsers = (req, res) => {
     Models.Users.findAll({}).then(function (data) {
@@ -28,8 +27,8 @@ const validatePasswordOfUser = (req, res) => {
         const uppercaseLetters = password.match(/[A-Z]/g)
         const numbersNeeded = password.match(/\d/g)
         console.log(password)
-        if (password === '') {
-            password = 'Pass1'
+        if (password==='') {
+            password='Pass1'
             updateUsers(req, res)
         }
         else if (password.length < 4) {
@@ -70,7 +69,7 @@ const validateCreatedUser = (data, res) => {
 }
 
 const updateUsers = async (req, res) => {
-    if (req.body.password) { req.body.password = await bcrypt.hash(req.body.password, 10); }// Hash the user's password
+    if (req.body.password) {req.body.password = await bcrypt.hash(req.body.password, 10);}// Hash the user's password
     Models.Users.update(req.body, {
         where: {
             id:
@@ -146,18 +145,7 @@ const loginUser = (req, res) => {
     });
 };
 
-const uploadTheFile = (req, res) => {
-    try {
-        console.log(req.file) // saved filename is in req.file.filename
-        const userUpdates = { image: '/images/' + req.file.filename };
-        console.log(userUpdates)
-        uploadFile()
-        res.status(200).json({ result: 'File uploaded to successfully', data: response }) // send updated info back in response
-    }
-    catch (err) { res.status(500).json({ result: err.message }) }
-}
-
 
 module.exports = {
-    getUsers, validatePasswordOfUser, updateUsers, deleteUserById, deleteUsers, getUsersByID, loginUser, uploadTheFile
+    getUsers, validatePasswordOfUser, updateUsers, deleteUserById, deleteUsers, getUsersByID, loginUser
 }

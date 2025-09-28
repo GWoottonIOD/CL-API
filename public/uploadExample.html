@@ -1,23 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
-  <title>File Uploads with Multer</title>
+  <title>Multer File Upload</title>
 </head>
 
 <body>
-  <h2>Text File Uploads with Multer</h2>
+  <h2>Multer File Upload</h2>
 
   <form action="http://localhost:8063/api/users/upload" enctype="multipart/form-data" method="POST">
-
-    <label for="myFile1">First Text File:</label>
-    <input type="file" name="myFile1" accept=".pdf"/> <br /><br />
-    <label for="myFile2">Second Text File:</label>
-    <input type="file" name="myFile2" accept=".txt" /> <br /><br />
+    <label for="myFile">File:</label>
+    <input type="file" name="file" /> <br /><br />
     <input type="submit" value="Submit" />
   </form>
-
-</body>
-
-</html>
+  </body>
+  </html>

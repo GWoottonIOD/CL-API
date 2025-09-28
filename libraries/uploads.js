@@ -2,7 +2,7 @@ const multer = require('multer') // first run 'npm install multer'
 
 // first set up the path and filename the image will use
 const storage = multer.diskStorage({
-    destination: 'public/images/', // store images in public folder of backend, in defined images directory
+    destination: 'uploads', // store images in public folder of backend, in defined images directory
     filename: (req, file, cb) => {
         cb(null, Date.now() + '-' + file.originalname) // timestamp the filename to keep it unique, otherwise files with same name will overwrite
     },

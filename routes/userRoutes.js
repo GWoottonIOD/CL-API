@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const Controllers = require("../controllers/userController");
+const uploads = require('../libraries/uploads');
 
 // Setting up a GET request for the "/" endpoint
 router.get('/', (req, res) => {
@@ -26,11 +27,20 @@ router.post('/login', (req, res) => {// works
 });
 
 // Setting up a POST request for the "/upload" endpoint
-router.post('/upload', (req, res) => {
-    console.log('req.file')
+router.post('/upload', (req, res, next) => {
+    console.log(next)
     // Calling the uploadTheFile function from the userController module, passing in the request and response objects
-    // Controllers.uploadTheFile(req, res);
+    uploads.uploadFile(req, res, next);
 });
+
+// Setting up a POST request for the "/upload" endpoint
+router.post('/uploadmultiple', (req, res, next) => {
+    console.log(next)
+    // Calling the uploadTheFile function from the userController module, passing in the request and response objects
+    uploads.uploadFiles(req, res, next);
+});
+
+// app.post('/profile', upload.single('avatar'), function (req, res, next) {}
 
 // Setting up a PUT request for the "/:id" endpoint
 router.put('/:id', (req, res) => {
