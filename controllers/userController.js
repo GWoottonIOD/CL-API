@@ -1,26 +1,26 @@
 "use strict";
-const Models = require("../models");
-const bcrypt = require('bcryptjs')
-const jwt = require("jsonwebtoken"); // CommonJS syntax
-require("dotenv").config();
+import Users from '../models/users.js';
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'; // CommonJS syntax
+import 'dotenv/config';
 
-const getUsers = (req, res) => {
-    Models.Users.findAll({}).then(function (data) {
+export const getUsers = (req, res) => {
+    Users.findAll({}).then(function (data) {
         res.send({ result: 200, data: data })
     }).catch(err => {
         throw err
     })
 }
 
-const getUsersByID = (req, res) => {
-    Models.Users.findAll({ where: { id: req.params.id } }).then(function (data) {
+export const getUsersByID = (req, res) => {
+    Users.findAll({ where: { id: req.params.id } }).then(function (data) {
         res.send({ result: 200, data: data })
     }).catch(err => {
         throw err
     })
 }
 
-const validatePasswordOfUser = (req, res) => {
+export const validatePasswordOfUser = (req, res) => {
     const path = req.route.path
     const password = req.body.password
     if (password) {
@@ -55,9 +55,9 @@ const validatePasswordOfUser = (req, res) => {
     }
 }
 
-const validateCreatedUser = (data, res) => {
+export const validateCreatedUser = (data, res) => {
     const body = data
-    Models.Users.findAll({ where: { username: data.username } }, body).then(function (data) {
+    Users.findAll({ where: { username: data.username } }, body).then(function (data) {
         if (data.length > 0) {
             res.send({ result: 400, message: "Username already exists" })
         } else {
@@ -68,9 +68,9 @@ const validateCreatedUser = (data, res) => {
     })
 }
 
-const updateUsers = async (req, res) => {
+export const updateUsers = async (req, res) => {
     if (req.body.password) {req.body.password = await bcrypt.hash(req.body.password, 10);}// Hash the user's password
-    Models.Users.update(req.body, {
+    Users.update(req.body, {
         where: {
             id:
                 req.params.id
@@ -81,8 +81,8 @@ const updateUsers = async (req, res) => {
         throw err
     })
 }
-const deleteUserById = (req, res) => {
-    Models.Users.destroy({
+export const deleteUserById = (req, res) => {
+    Users.destroy({
         where: { id: req.params.id }
     }).then(function (data) {
         res.send({ result: 200, data: data })
@@ -91,8 +91,8 @@ const deleteUserById = (req, res) => {
     })
 }
 
-const deleteUsers = (req, res) => {
-    Models.Users.truncate().then(function (data) {
+export const deleteUsers = (req, res) => {
+    Users.truncate().then(function (data) {
         res.send({ result: 200, data: data })
     }).catch(err => {
         throw err
@@ -100,11 +100,11 @@ const deleteUsers = (req, res) => {
 }
 
 // Function to create a new user
-const createUser = async (data, res) => {
+export const createUser = async (data, res) => {
     // Hash the user's password
     data.password = await bcrypt.hash(data.password, 10);
     // Create a new user in the User model
-    Models.Users.create(data).then(function (data) {
+    Users.create(data).then(function (data) {
         // Send the data as response
         res.send({ result: 200, data: data })
     }).catch(err => {
@@ -114,9 +114,9 @@ const createUser = async (data, res) => {
 }
 
 // Function to login a user
-const loginUser = (req, res) => {
+export const loginUser = (req, res) => {
     // Find the user with the given username in the User model
-    Models.Users.findOne({ where: { username: req.body.username } }).then(
+    Users.findOne({ where: { username: req.body.username } }).then(
         async function (user) {
             // If the user exists and the password is correct, send the user data as a response
             if (user && (await bcrypt.compare(req.body.password, user.password))) {
@@ -145,7 +145,3 @@ const loginUser = (req, res) => {
     });
 };
 
-
-module.exports = {
-    getUsers, validatePasswordOfUser, updateUsers, deleteUserById, deleteUsers, getUsersByID, loginUser
-}

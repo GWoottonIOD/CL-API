@@ -1,16 +1,16 @@
 'use strict';
-require("dotenv").config();
-const { Sequelize } = require('sequelize');
+import 'dotenv/config';
+import { Sequelize } from 'sequelize';
 
 //Sequelize is a package that abstracts out the need to write SQL queries,
 //relying instead on their models to do it for you
-const sequelize = new Sequelize(process.env.DB_NAME,
+export const sequelize = new Sequelize(process.env.DB_NAME,
     process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
     dialect: 'mysql'
 });
 
-const connectMysql = async () => {
+export const connectMysql = async () => {
     try {
         await sequelize.authenticate();
         console.log(`Successful connection to MySQL Database ${process.env.DB_NAME}`);
@@ -21,7 +21,3 @@ const connectMysql = async () => {
 }
 
 connectMysql();
-module.exports = {
-    Sequelize: sequelize,
-    connectMysql
-}

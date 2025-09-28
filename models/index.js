@@ -1,5 +1,5 @@
 'use strict'
-const Users = require('./users') //require the model
+import Users from './users.js' //require the model
 
 async function init() {
     await Users.sync();  
@@ -7,7 +7,5 @@ async function init() {
 };
 
 init();
-module.exports = {
-    Users, //export the model
-};
 
+export { Users }

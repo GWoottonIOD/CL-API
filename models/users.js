@@ -1,7 +1,7 @@
-const { DataTypes, Model } = require("sequelize");
-let dbConnect = require("../dbConnect");
-const sequelizeInstance = dbConnect.Sequelize;
-// const Debts = require("./debts")
+import { DataTypes, Model} from 'sequelize';
+import { sequelize } from '../dbConnect.js';
+export const sequelizeInstance = sequelize
+// import Debts from './debts'
 
 
 class Users extends Model { }
@@ -32,6 +32,5 @@ Users.init({
         sequelize: sequelizeInstance, modelName: 'Users', timestamps: true, freezeTableName: true
     }
 )
-module.exports = Users;
 
-
+export default Users

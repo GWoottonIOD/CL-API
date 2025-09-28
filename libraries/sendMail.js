@@ -1,9 +1,9 @@
-const nodemailer = require('nodemailer');
-const user = require('../models/user');
-require('dotenv').config();
+import nodemailer from 'nodemailer';
+import user from '../models/user';
+import 'dotenv/config';
 
 
-const transporter = nodemailer.createTransport({
+export const transporter = nodemailer.createTransport({
     service:'gmail',
     host: "smtp.gmail.com",
     port: 587,
