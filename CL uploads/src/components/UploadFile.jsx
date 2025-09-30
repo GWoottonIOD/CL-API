@@ -2,9 +2,11 @@ import Button from '@mui/material/Button';
 import React from 'react'
 import axios from 'axios'
 import { CircularProgress } from '@mui/material';
+import { useCurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function UploadFile() {
   const [loading, setLoading] = React.useState(false);
+  const { currentUser } = useCurrentUserContext()
 
   const _handleUpload = (e) => {
     const dataForm = new FormData();
@@ -14,29 +16,34 @@ export default function UploadFile() {
       .post('http://localhost:8063/api/users/upload', dataForm)
       .then(res => {
         setLoading(true);
+        console.log(res.data);
       })
       .catch(err => console.log(err));
   }
 
   return (
     <div className="App">
-      {loading
-        ? <CircularProgress size={40} />
-        : <Button
-          component="label"
-          variant="contained"
-          color="primary"
-          size="large"
-          sx={{ alignItems: 'center' }}
-          onChange={_handleUpload}
-        >
-          Upload
-          <input
-            type="file"
-            hidden
-          />
+      {currentUser?.email ?
+        loading
+          ? <CircularProgress size={40} />
+          : <Button
+            component="label"
+            variant="contained"
+            color="primary"
+            size="large"
+            sx={{ alignItems: 'center' }}
+            onChange={_handleUpload}
+          >
+            Upload
+            <input
+              type="file"
+              hidden
+            />
+          </Button>
+        : <Button color="primary" variant="contained" size="small" onClick={() => navigate('/signup')}>
+          Sign up now!
         </Button>}
-    </div>
+    </div >
   )
 }
 

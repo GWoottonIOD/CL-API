@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import visuallyHidden from '@mui/utils/visuallyHidden';
 import { styled } from '@mui/material/styles';
 import UploadFile from './UploadFile';
+import MorphingCV from './MorphingCV';
 
 const StyledBox = styled('div')(({ theme }) => ({
   alignSelf: 'center',
@@ -113,7 +114,12 @@ export default function Hero() {
             .
           </Typography>
         </Stack>
-        <StyledBox id="image" />
+        {/* <StyledBox id="image" /> */}
+        <Box
+          sx={{ width: { xs: '100%', sm: '100%' },
+          mt: 10 }}>
+        <MorphingCV/>
+        </Box>
       </Container>
     </Box>
   );

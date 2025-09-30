@@ -1,4 +1,4 @@
-import {getUsers, getUsersByID, validatePasswordOfUser, validateCreatedUser, createUser, updateUsers, deleteUsers, deleteUserById} from './userController.js';
+import {getUsers, getUsersByID, validatePasswordOfUser, validateCreatedUser, createUser, updateUsers, deleteUsers, deleteUserById, loginUser} from './userController.js';
 
 export const userController = {
     getUsers,
@@ -6,6 +6,7 @@ export const userController = {
     validatePasswordOfUser,
     validateCreatedUser,
     createUser,
+    loginUser,
     updateUsers,
     deleteUsers,
     deleteUserById

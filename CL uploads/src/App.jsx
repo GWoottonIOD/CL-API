@@ -4,17 +4,20 @@ import AppRoutes from './routes/AppRoutes'
 import AppAppBar from './components/AppAppBar'
 import AppTheme from './shared-theme/AppTheme'
 import { CssBaseline } from '@mui/material'
+import { CurrentUserContext, CurrentUserHolder } from './contexts/CurrentUserContext'
 
 function App(props) {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <AppTheme {...props}>
-        <CssBaseline enableColorScheme />
-        <AppAppBar />
-        <AppRoutes />
-      </AppTheme>
+      <CurrentUserHolder>
+        <AppTheme {...props}>
+          <CssBaseline enableColorScheme />
+          <AppAppBar />
+          <AppRoutes />
+        </AppTheme>
+      </CurrentUserHolder>
     </>
   )
 }

@@ -16,6 +16,8 @@ import { styled } from '@mui/material/styles';
 import ForgotPassword from '../components/ForgotPassword';
 import AppTheme from '../shared-theme/AppTheme';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from '../components/CustomIcons';
+import axios from 'axios'
+import { useCurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -65,6 +67,7 @@ export default function SignIn(props) {
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
+  const { handleUser } = useCurrentUserContext()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -75,15 +78,26 @@ export default function SignIn(props) {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     if (emailError || passwordError) {
       event.preventDefault();
       return;
     }
     const data = new FormData(event.currentTarget);
-    console.log({
+    const readyData = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+    const axdebts = `http://localhost:8063/api/users/login`
+    return axios.post(axdebts, readyData)
+      .then(response => {
+        handleUser(response.data.data);
+        navigate('/login')
+      })
+      .catch(error => {
+        console.log(error);
+        return Promise.reject(error);
+      })
   };
 
   const validateInputs = () => {

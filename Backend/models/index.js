@@ -8,4 +8,4 @@ async function init() {
 
 init();
 
-export { Users }
+export { init }

@@ -3,6 +3,7 @@ import Users from '../models/users.js';
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'; // CommonJS syntax
 import 'dotenv/config';
+import {init} from '../models/index.js'
 
 export const getUsers = (req, res) => {
     Users.findAll({}).then(function (data) {
@@ -57,9 +58,9 @@ export const validatePasswordOfUser = (req, res) => {
 
 export const validateCreatedUser = (data, res) => {
     const body = data
-    Users.findAll({ where: { username: data.username } }, body).then(function (data) {
+    Users.findAll({ where: { email: data.email } }, body).then(function (data) {
         if (data.length > 0) {
-            res.send({ result: 400, message: "Username already exists" })
+            res.send({ result: 400, message: "Email already exists" })
         } else {
             createUser(body, res)
         }
@@ -116,7 +117,7 @@ export const createUser = async (data, res) => {
 // Function to login a user
 export const loginUser = (req, res) => {
     // Find the user with the given username in the User model
-    Users.findOne({ where: { username: req.body.username } }).then(
+    Users.findOne({ where: { email: req.body.email } }).then(
         async function (user) {
             // If the user exists and the password is correct, send the user data as a response
             if (user && (await bcrypt.compare(req.body.password, user.password))) {
@@ -126,7 +127,8 @@ export const loginUser = (req, res) => {
                 // Create a payload with user information
                 const payload = {
                     userId: user.id,
-                    username: user.username,
+                    email: user.email,
+                    name: user.name
                 };
 
                 // Generate a token with jwt.sign

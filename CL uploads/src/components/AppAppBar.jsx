@@ -12,8 +12,12 @@ import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
-import Sitemark from './SitemarkIcon';
+import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from 'react-router-dom';
+import { useCurrentUserContext } from '../contexts/CurrentUserContext';
+import Menu from '@mui/material/Menu';
+import Typography from '@mui/material/Typography';
+import PersonIcon from '@mui/icons-material/Person';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -34,10 +38,24 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
+  const { currentUser } = useCurrentUserContext()
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+  console.log(currentUser)
 
   return (
     <AppBar
@@ -53,6 +71,9 @@ export default function AppAppBar() {
       <Container maxWidth="lg">
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
+            <Button variant="text" color="info" size="small" onClick={() => navigate('/')}>
+              <HomeIcon />
+            </Button>
             {/* <Sitemark /> */}
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               {/* <Button variant="text" color="info" size="small">
@@ -82,12 +103,41 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            <Button color="primary" variant="text" size="small" onClick={() => navigate('/login')}>
-              Sign in
-            </Button>
-            <Button color="primary" variant="contained" size="small" onClick={() => navigate('/signup')}>
-              Sign up
-            </Button>
+
+            {currentUser?.email
+              ? <>
+                <IconButton onClick={handleOpenUserMenu}>
+                  <PersonIcon fontSize="small" />
+                </IconButton>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+              : <><Button color="primary" variant="text" size="small" onClick={() => navigate('/login')}>
+                Sign in
+              </Button>
+                <Button color="primary" variant="contained" size="small" onClick={() => navigate('/signup')}>
+                  Sign up
+                </Button></>}
             <ColorModeIconDropdown />
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
@@ -105,6 +155,18 @@ export default function AppAppBar() {
                 },
               }}
             >
+              <Box sx={{ p: 2, backgroundColor: 'background.default' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                  }}
+                >
+                  <IconButton onClick={handleOpenUserMenu}>
+                    <PersonIcon />
+                  </IconButton>
+                </Box>
+              </Box>
               <Box sx={{ p: 2, backgroundColor: 'background.default' }}>
                 <Box
                   sx={{

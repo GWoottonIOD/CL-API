@@ -2,7 +2,7 @@
 import express from 'express';
 export const router = express.Router();
 import {userController} from '../controllers/index.js';
-import {uploadFile, uploadFiles} from '../libraries/uploads.js';
+import { storage, uploadFile, uploadFiles} from '../libraries/uploads.js';
 // import response from '../libraries/chatgpt';
 // import {response} from '../libraries/chatgpt.js';
 
@@ -36,9 +36,9 @@ router.post('/login', (req, res) => {// works
 
 // Setting up a POST request for the "/upload" endpoint
 router.post('/upload', (req, res, next) => {
-    console.log(next)
+    console.log(storage.filename)
     // Calling the uploadTheFile function from the userController module, passing in the request and response objects
-    try { uploadFile(req, res, next), res.send({ result: 200, data: 'success' }) }
+    try { uploadFile(req, res, next).then(res.send({ result: 200, data: 'storage.filename' }))  }
     catch (err) { res.send(err) }
 });
 

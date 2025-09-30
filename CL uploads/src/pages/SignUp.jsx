@@ -15,6 +15,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import AppTheme from '../shared-theme/AppTheme';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from '../components/CustomIcons';
+import axios from 'axios'
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -104,17 +105,29 @@ export default function SignUp(props) {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     if (nameError || emailError || passwordError) {
       event.preventDefault();
       return;
     }
     const data = new FormData(event.currentTarget);
-    console.log({
+    const readyData = {
       name: data.get('name'),
-      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+    console.log(readyData)
+    const axdebts = `http://localhost:8063/api/users/create`
+    return axios.post(axdebts, readyData)
+        .then(response => { 
+            console.log(response.data.data);
+            navigate('/login')
+         })
+        .catch(error => { 
+            console.log(error);
+            return Promise.reject(error);
+        })
+
   };
 
   return (
