@@ -21,5 +21,4 @@ export default function ColorModeSelect(props) {
       <MenuItem value="light">Light</MenuItem>
       <MenuItem value="dark">Dark</MenuItem>
     </Select>
-  );
-}
+  );}

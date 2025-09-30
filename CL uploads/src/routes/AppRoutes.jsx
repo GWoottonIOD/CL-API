@@ -5,6 +5,7 @@ import PNF from '../pages/PNF';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import MarketingPage from '../components/MarketingPage';
+import SubmitForm from '../pages/SubmitForm';
 
 
 export default function AppRoutes() {
@@ -15,10 +16,11 @@ export default function AppRoutes() {
                 <Route path="/*" element={<PNF />} />
                 <Route path='/login' element={<SignIn />} />
                 <Route path='/signup' element={<SignUp />} />
+                <Route path='/submit' element={<SubmitForm />} />
                 {/* <Route path='/userinfo' >
                     <Route path=':id' element={<ProtectedRoute><Theme component={<UserInfoEdit />} /></ProtectedRoute>} />
                 </Route> */}
-                <Route path='/' element={<MarketingPage />}/>
+                <Route path='/' element={<MarketingPage />} />
                 {/* <Route path='/profile' element={<ProtectedRoute><Theme component={<Profile />} /></ProtectedRoute>} /> */}
                 <Route path='/pna' element={<PageNotAllowed />} />
             </Routes>
