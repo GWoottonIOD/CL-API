@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import 'dotenv/config';
 
-export const openai = new OpenAI({OPENAI_API_KEY: process.env.GBT_KEY});
+export const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 export const response = await openai.responses.create({
     model: "gpt-4.1",

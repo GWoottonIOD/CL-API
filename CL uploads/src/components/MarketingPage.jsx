@@ -12,11 +12,9 @@ import Testimonials from './Testimonials.jsx';
 import FAQ from './FAQ.jsx';
 import Footer from './Footer.jsx';
 
-export default function MarketingPage(props) {
+export default function MarketingPage() {
   return (
-    <AppTheme {...props}>
-      <CssBaseline enableColorScheme />
-      <AppAppBar />
+    <>
       <Hero />
       <div>
         {/* <LogoCollection />
@@ -32,6 +30,6 @@ export default function MarketingPage(props) {
         <Divider />
         {/* <Footer /> */}
       </div>
-    </AppTheme>
+    </>
   );
 }

@@ -1,16 +1,20 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import UploadFile from './components/UploadFile'
-import MarketingPage from './components/MarketingPage'
+import AppRoutes from './routes/AppRoutes'
+import AppAppBar from './components/AppAppBar'
+import AppTheme from './shared-theme/AppTheme'
+import { CssBaseline } from '@mui/material'
 
-function App() {
+function App(props) {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <MarketingPage/>
+      <AppTheme {...props}>
+        <CssBaseline enableColorScheme />
+        <AppAppBar />
+        <AppRoutes />
+      </AppTheme>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import express from 'express';
-import cors from 'cors';
+import cors from './libraries/cors.js';
 import 'dotenv/config';
 import {connectMysql} from './dbConnect.js';
 import { router as userRoutes} from './routes/userRoutes.js';
