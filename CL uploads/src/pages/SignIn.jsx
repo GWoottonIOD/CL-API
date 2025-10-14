@@ -18,8 +18,9 @@ import AppTheme from '../shared-theme/AppTheme';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from '../components/CustomIcons';
 import axios from 'axios'
 import { useCurrentUserContext } from '../contexts/CurrentUserContext';
+import { useNavigate } from 'react-router-dom';
 
-const Card = styled(MuiCard)(({ theme }) => ({
+export const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignSelf: 'center',
@@ -38,7 +39,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
-const SignInContainer = styled(Stack)(({ theme }) => ({
+export const SignInContainer = styled(Stack)(({ theme }) => ({
   height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
   minHeight: '100%',
   padding: theme.spacing(2),
@@ -68,6 +69,7 @@ export default function SignIn(props) {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const { handleUser } = useCurrentUserContext()
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -92,7 +94,7 @@ export default function SignIn(props) {
     return axios.post(axdebts, readyData)
       .then(response => {
         handleUser(response.data.data);
-        navigate('/login')
+        navigate('/')
       })
       .catch(error => {
         console.log(error);

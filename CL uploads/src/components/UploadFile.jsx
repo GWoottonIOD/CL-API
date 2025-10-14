@@ -3,10 +3,12 @@ import React from 'react'
 import axios from 'axios'
 import { CircularProgress } from '@mui/material';
 import { useCurrentUserContext } from '../contexts/CurrentUserContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function UploadFile() {
   const [loading, setLoading] = React.useState(false);
   const { currentUser } = useCurrentUserContext()
+  const navigate = useNavigate();
 
   const _handleUpload = (e) => {
     const dataForm = new FormData();
