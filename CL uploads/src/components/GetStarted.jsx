@@ -112,6 +112,7 @@ export default function GetStarted() {
                 flexDirection: { xs: "column", sm: "row" },
                 alignItems: "center",
                 fontSize: "clamp(3rem, 10vw, 3.5rem)",
+                animation: `${fadeIn} 1s ease-in forwards`
               }}
             >
               Let's
@@ -126,6 +127,7 @@ export default function GetStarted() {
                 ...theme.applyStyles("dark", {
                   color: "primary.light",
                 }),
+                animation: `${fadeIn} 2s ease-in forwards`
               })}
             >
               Go!
@@ -142,7 +144,7 @@ export default function GetStarted() {
                 my: "20%",
               }}
             >
-              <FormControl fullWidth sx={{ gap: 2, animation: `${fadeIn} 1s ease-in forwards`}}>
+              <FormControl fullWidth sx={{ gap: 2, animation: `${fadeIn} 3s ease-in forwards`}}>
                 <FormLabel htmlFor="name">Applicant's name</FormLabel>
                 <TextField
                   // error={emailError}
@@ -156,7 +158,7 @@ export default function GetStarted() {
                   required
                   fullWidth
                   variant="outlined"
-                  onChange={() => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   // color={emailError ? 'error' : 'primary'}
                 />
                 <FormLabel htmlFor="url">Target Seek URL</FormLabel>
@@ -172,7 +174,7 @@ export default function GetStarted() {
                   required
                   variant="outlined"
                   fullWidth
-                  onChange={() => setTarget(e.target.value)}
+                  onChange={(e) => setTarget(e.target.value)}
                   // color={emailError ? 'error' : 'primary'}
                 />
                 <FormLabel htmlFor="number">Select template</FormLabel>
@@ -201,11 +203,11 @@ export default function GetStarted() {
                   required
                   fullWidth
                   variant="outlined"
-                  onChange={() => setKey(e.target.value)}
+                  onChange={(e) => setKey(e.target.value)}
                   // color={passwordError ? 'error' : 'primary'}
                 />
               </FormControl>
-              <UploadFile />
+              <UploadFile fadeIn={fadeIn}/>
             </Box>
           </Stack>
         </Container>

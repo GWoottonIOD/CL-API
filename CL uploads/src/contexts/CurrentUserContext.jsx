@@ -18,21 +18,22 @@ export const CurrentUserHolder = (props) => {
     // Function to handle user object and set cookie
     const handleUser = (user) => {
         console.log(user)
-        if (user.id) {
+        if (user) {
             if (user.rememberMe) {
                 // Setting user cookie for an undefined period.
                 setCookie('userObject', JSON.stringify(user.user), { path: '/' }) 
             }
             else {
                 // Setting user cookie for 24 hours
-                setCookie('userObject', JSON.stringify(user.user), { path: '/', maxAge: 60 * 60 * 24 * 28 }) 
+                // setCookie('userObject', JSON.stringify(user.user), { path: '/', maxAge: 60 * 60 * 24 * 28 }) 
+                setCookie('userObject', JSON.stringify(user), { path: '/', maxAge: 60 * 60 * 24 * 28 })
             }
         } else {
             // If user does not have an id, remove user cookie
             removeCookie('userObject')
         }
         // Setting the current user object
-        setUserCurrent(user.user)
+        setUserCurrent(user)
     }
 
 

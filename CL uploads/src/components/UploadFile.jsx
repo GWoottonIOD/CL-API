@@ -5,7 +5,7 @@ import { CircularProgress } from '@mui/material';
 import { useCurrentUserContext } from '../contexts/CurrentUserContext';
 import { useNavigate } from 'react-router-dom';
 
-export default function UploadFile() {
+export default function UploadFile({fadeIn}) {
   const [loading, setLoading] = React.useState(false);
   const { currentUser } = useCurrentUserContext()
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export default function UploadFile() {
             variant="contained"
             color="primary"
             size="large"
-            sx={{ alignItems: 'center' }}
+            sx={{ alignItems: 'center', animation: `${fadeIn} 3s ease-in forwards` }}
             onChange={_handleUpload}
           >
             Upload

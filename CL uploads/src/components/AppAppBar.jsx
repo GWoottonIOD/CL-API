@@ -39,7 +39,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
-  const { currentUser } = useCurrentUserContext();
+  const { currentUser, handleUser } = useCurrentUserContext();
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -47,7 +47,7 @@ export default function AppAppBar() {
 
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-  console.log(currentUser.name);
+  console.log(currentUser?.email);
 
   return (
     <AppBar
@@ -69,7 +69,7 @@ export default function AppAppBar() {
               variant="text"
               color="info"
               size="small"
-              onClick={() => navigate("/")}
+              onClick={() => navigate('/')}
             >
               <HomeIcon />
             </Button>
@@ -87,7 +87,7 @@ export default function AppAppBar() {
               alignItems: "center",
             }}
           >
-            {currentUser?.email ? (
+            {currentUser?.email ? <>
               <Typography
                 sx={{
                   textAlign: "center",
@@ -95,9 +95,18 @@ export default function AppAppBar() {
                   width: { sm: "100%", md: "80%" },
                 }}
               >
-                Welcome, {currentUser?.name.split(" ")[0]}
+                Welcome, { currentUser?.email.split("@")[0]}
+                {/* currentUser?.name.split(" ")[0]|| */}
               </Typography>
-            ) : (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  size="small"
+                  onClick={() => navigate("/signup")}
+                >
+                  log off
+                </Button>
+            </> : (
               <>
                 <Button
                   color="primary"
