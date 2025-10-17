@@ -21,7 +21,7 @@ export default function AppRoutes() {
         {/* <Route path='/userinfo' >
                     <Route path=':id' element={<ProtectedRoute><Theme component={<UserInfoEdit />} /></ProtectedRoute>} />
                 </Route> */}
-        <Route path="/" element={<Home />} />
+        <Route path="/CL-API/" element={<Home />} />
         {/* <Route path='/profile' element={<ProtectedRoute><Theme component={<Profile />} /></ProtectedRoute>} /> */}
         <Route path="/pna" element={<PageNotAllowed />} />
       </Routes>
