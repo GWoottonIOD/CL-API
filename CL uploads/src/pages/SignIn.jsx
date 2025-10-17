@@ -90,18 +90,18 @@ export default function SignIn(props) {
       email: data.get('email'),
       password: data.get('password'),
     };
-    // const axdebts = `http://localhost:8063/api/users/login`
-    // return axios.post(axdebts, readyData)
-    //   .then(response => {
-    //     handleUser(response.data.data);
-    //     navigate('/')
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //     return Promise.reject(error);
-    //   })
-    handleUser(readyData)
-    navigate('/')
+    const axdebts = `http://localhost:8063/api/users/login`
+    return axios.post(axdebts, readyData)
+      .then(response => {
+        handleUser(response.data.data);
+        navigate('/')
+      })
+      .catch(error => {
+        console.log(error);
+        return Promise.reject(error);
+      })
+    // handleUser(readyData)
+    // navigate('/')
   };
 
   const validateInputs = () => {
