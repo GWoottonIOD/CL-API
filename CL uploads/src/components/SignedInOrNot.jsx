@@ -31,9 +31,10 @@ export default function SignedInOrNotLarge({ width }) {
               color="primary"
               variant="contained"
               size="small"
+              sx= {{whiteSpace: "nowrap"}}
               onClick={logOff}
             >
-              log off
+              Sign out
             </Button>
           </>
         ) : (
@@ -56,7 +57,7 @@ export default function SignedInOrNotLarge({ width }) {
                 fullWidth
                 onClick={logOff}
               >
-                log off
+                Sign out
               </Button>
             </MenuItem>
           </>
