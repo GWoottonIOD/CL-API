@@ -101,7 +101,7 @@ export default function SignIn(props) {
     //     return Promise.reject(error);
     //   })
     handleUser(readyData)
-    navigate('/')
+    navigate('/CL-API/')
   };
 
   const validateInputs = () => {

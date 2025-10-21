@@ -19,6 +19,7 @@ import Menu from "@mui/material/Menu";
 import Typography from "@mui/material/Typography";
 import PersonIcon from "@mui/icons-material/Person";
 import ProfileModeIconDropdown from "../shared-theme/ProfileModeIconDropdown";
+import SignedInOrNotLarge from "./SignedInOrNot";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
@@ -45,6 +46,48 @@ export default function AppAppBar() {
     setOpen(newOpen);
   };
 
+  const logOff = () => {
+    navigate("/login");
+    setTimeout(() => handleUser(), 500);
+  };
+
+  const signed = currentUser?.email ? (
+    <>
+      <Typography
+        sx={{
+          textAlign: "center",
+          color: "text.secondary",
+          width: { sm: "100%", md: "80%" },
+        }}
+      >
+        Welcome, {currentUser?.email.split("@")[0]}
+        {/* currentUser?.name.split(" ")[0]|| */}
+      </Typography>
+      <Button color="primary" variant="contained" size="small" onClick={logOff}>
+        log off
+      </Button>
+    </>
+  ) : (
+    <>
+      <Button
+        color="primary"
+        variant="text"
+        size="small"
+        onClick={() => navigate("/login")}
+      >
+        Sign in
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
+        size="small"
+        onClick={() => navigate("/signup")}
+      >
+        Sign up
+      </Button>
+    </>
+  );
+
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
   console.log(currentUser?.email);
@@ -69,7 +112,7 @@ export default function AppAppBar() {
               variant="text"
               color="info"
               size="small"
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/CL-API/")}
             >
               <HomeIcon />
             </Button>
@@ -87,45 +130,7 @@ export default function AppAppBar() {
               alignItems: "center",
             }}
           >
-            {currentUser?.email ? <>
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  color: "text.secondary",
-                  width: { sm: "100%", md: "80%" },
-                }}
-              >
-                Welcome, { currentUser?.email.split("@")[0]}
-                {/* currentUser?.name.split(" ")[0]|| */}
-              </Typography>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  size="small"
-                  onClick={() => navigate("/signup")}
-                >
-                  log off
-                </Button>
-            </> : (
-              <>
-                <Button
-                  color="primary"
-                  variant="text"
-                  size="small"
-                  onClick={() => navigate("/login")}
-                >
-                  Sign in
-                </Button>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  size="small"
-                  onClick={() => navigate("/signup")}
-                >
-                  Sign up
-                </Button>
-              </>
-            )}
+            <SignedInOrNotLarge width="Not full" />
             <ColorModeIconDropdown />
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" }, gap: 1 }}>
@@ -156,26 +161,7 @@ export default function AppAppBar() {
                 </Box>
 
                 <Divider sx={{ my: 3 }} />
-                <MenuItem>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    fullWidth
-                    onClick={() => navigate("/signup")}
-                  >
-                    Sign up
-                  </Button>
-                </MenuItem>
-                <MenuItem>
-                  <Button
-                    color="primary"
-                    variant="outlined"
-                    fullWidth
-                    onClick={() => navigate("/login")}
-                  >
-                    Sign in
-                  </Button>
-                </MenuItem>
+                <SignedInOrNotLarge width="full" />
               </Box>
             </Drawer>
           </Box>
